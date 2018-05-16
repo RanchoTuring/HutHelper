@@ -39,7 +39,7 @@ public class ExplessonPresenter extends BasePresenter<IExplessonView, ExpLessonA
                 .list();
 
         if (!ListUtils.isEmpty(list)) {
-            if (getView() != null) {
+            if (getView() != null && !isManual ) {
                 getView().showExpLesson(list);
                 return;
             }

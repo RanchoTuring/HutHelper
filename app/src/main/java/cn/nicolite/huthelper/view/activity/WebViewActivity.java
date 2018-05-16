@@ -394,8 +394,8 @@ public class WebViewActivity extends BaseActivity {
                 Elements img = content.select("img[src]");
                 for (Element element : img) {
                     String src = element.attr("abs:src");
-                    src = src.replace("http://172.16.10.210", Constants.PICTURE_URL);
-                    src = src.replace("http://love.zengheng.top:8888", Constants.PICTURE_URL);
+                    src = src.replace("http://172.16.10.210", Constants.ARTICLE_BASE_URL);
+                    src = src.replace("http://love.zengheng.top:8888", Constants.ARTICLE_BASE_URL);
 
                     element.attr("src", src);
                     element.removeAttr("_src");

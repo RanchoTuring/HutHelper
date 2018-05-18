@@ -47,6 +47,8 @@ public class MApplication extends Application {
             e.printStackTrace();
         }
 
+
+        //test
         //只在MainActivity上显示升级对话框
         Beta.canShowUpgradeActs.add(MainActivity.class);
         //初始化腾讯Bugly

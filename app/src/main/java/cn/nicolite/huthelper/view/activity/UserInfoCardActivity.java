@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,10 +145,13 @@ public class UserInfoCardActivity extends BaseActivity implements IUserInfoCardV
     public void showInfo(User user) {
         avatarUrlList.clear();
         avatarUrlList.add(user.getHead_pic_thumb());
+        String imageUrl = TextUtils.isEmpty(user.getHead_pic()) ? Constants.PICTURE_URL + user.getHead_pic_thumb() :
+                Constants.PICTURE_URL + user.getHead_pic();
         Glide
                 .with(activity)
-                .load(Constants.PICTURE_URL + user.getHead_pic_thumb())
+                .load(imageUrl)
                 .bitmapTransform(new CropCircleTransformation(UserInfoCardActivity.this))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .dontAnimate()
                 .skipMemoryCache(true)
                 .into(ivUserAvatar);

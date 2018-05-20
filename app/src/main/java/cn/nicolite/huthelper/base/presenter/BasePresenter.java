@@ -2,7 +2,6 @@ package cn.nicolite.huthelper.base.presenter;
 
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -13,17 +12,13 @@ import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-import cn.nicolite.huthelper.app.MApplication;
 import cn.nicolite.huthelper.base.activity.BaseActivity;
 import cn.nicolite.huthelper.base.fragment.BaseFragment;
-import cn.nicolite.huthelper.db.DaoHelper;
 import cn.nicolite.huthelper.db.DaoUtils;
-import cn.nicolite.huthelper.db.dao.ConfigureDao;
 import cn.nicolite.huthelper.db.dao.DaoSession;
 import cn.nicolite.huthelper.listener.ActivityLifeCycleListener;
 import cn.nicolite.huthelper.listener.FragmentLifeCycleListener;
 import cn.nicolite.huthelper.model.bean.Configure;
-import cn.nicolite.huthelper.presenter.LoginPresenter;
 import cn.nicolite.huthelper.utils.ListUtils;
 
 /**
@@ -36,9 +31,7 @@ public class BasePresenter<V, T> implements ActivityLifeCycleListener, FragmentL
     protected final String TAG = getClass().getSimpleName();
 
     protected Reference<V> viewRef;
-    protected V view;
     protected Reference<T> activityRef;
-    protected T activity;
     protected DaoSession daoSession;
     protected String userId;
     protected Configure configure;
@@ -101,7 +94,6 @@ public class BasePresenter<V, T> implements ActivityLifeCycleListener, FragmentL
      */
     private void attachView(V view) {
         viewRef = new WeakReference<V>(view);
-        this.view = viewRef.get();
     }
 
     /**
@@ -111,7 +103,6 @@ public class BasePresenter<V, T> implements ActivityLifeCycleListener, FragmentL
      */
     private void attachActivity(T activity) {
         activityRef = new WeakReference<T>(activity);
-        this.activity = activityRef.get();
     }
 
     /**
@@ -204,7 +195,7 @@ public class BasePresenter<V, T> implements ActivityLifeCycleListener, FragmentL
 
     @Override
     public void onDestroy() {
-        if (activity instanceof BaseActivity) {
+        if (getActivity() instanceof BaseActivity) {
             detachView();
             detachActivity();
         }
@@ -232,7 +223,7 @@ public class BasePresenter<V, T> implements ActivityLifeCycleListener, FragmentL
 
     @Override
     public void onDestroyView() {
-        if (activity instanceof BaseFragment) {
+        if (getActivity() instanceof BaseFragment) {
             detachView();
             detachActivity();
         }

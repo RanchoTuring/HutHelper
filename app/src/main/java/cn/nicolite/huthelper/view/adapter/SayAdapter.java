@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -55,13 +57,15 @@ public class SayAdapter extends RecyclerView.Adapter<SayAdapter.SayViewHolder> {
     @Override
     public void onBindViewHolder(final SayViewHolder holder, final int position) {
         final Say say = sayList.get(position);
-
+        String imageUrl = TextUtils.isEmpty(say.getHead_pic()) ? Constants.PICTURE_URL + say.getHead_pic_thumb() :
+                Constants.PICTURE_URL + say.getHead_pic();
         Glide
                 .with(context)
-                .load(Constants.PICTURE_URL + say.getHead_pic_thumb())
+                .load(imageUrl)
                 .bitmapTransform(new CropCircleTransformation(context))
                 .placeholder(R.drawable.say_default_head)
                 .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.say_default_head)
                 .dontAnimate()
                 .into(holder.ivItemSayAvatar);

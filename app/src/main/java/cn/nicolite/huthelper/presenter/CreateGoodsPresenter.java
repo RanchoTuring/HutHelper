@@ -190,6 +190,7 @@ public class CreateGoodsPresenter extends BasePresenter<ICreateGoodsView, Create
     }
 
     public void selectImages() {
+
         AndPermission
                 .with(getActivity())
                 .requestCode(100)

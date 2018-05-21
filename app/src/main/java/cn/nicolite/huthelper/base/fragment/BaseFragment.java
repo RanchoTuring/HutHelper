@@ -3,7 +3,6 @@ package cn.nicolite.huthelper.base.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -17,10 +16,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import cn.nicolite.huthelper.app.MApplication;
-import cn.nicolite.huthelper.db.DaoHelper;
 import cn.nicolite.huthelper.db.DaoUtils;
-import cn.nicolite.huthelper.db.dao.ConfigureDao;
 import cn.nicolite.huthelper.db.dao.DaoSession;
 import cn.nicolite.huthelper.listener.FragmentLifeCycleListener;
 import cn.nicolite.huthelper.model.bean.Configure;
@@ -69,13 +65,9 @@ public abstract class BaseFragment extends RxFragment {
         super.setUserVisibleHint(isVisibleToUser);
         isUIVisible = isVisibleToUser;
 
-        if (isViewCreated && isUIVisible && isFirstVisible) {
-            visibleToUser(true, true);
+        if (isViewCreated) {
+            visibleToUser(isUIVisible, isFirstVisible);
             isFirstVisible = false;
-        }
-
-        if (isViewCreated && isUIVisible) {
-            visibleToUser(true, false);
         }
     }
 
@@ -213,14 +205,18 @@ public abstract class BaseFragment extends RxFragment {
     /**
      * 初始化Activity配置,
      */
-    protected abstract void initConfig(Bundle savedInstanceState);
+    protected void initConfig(Bundle savedInstanceState) {
+
+    }
 
     /**
      * 初始化Bundle参数
      *
      * @param arguments
      */
-    protected abstract void initArguments(Bundle arguments);
+    protected void initArguments(Bundle arguments) {
+
+    }
 
     /**
      * 获取 xml layout
@@ -238,7 +234,9 @@ public abstract class BaseFragment extends RxFragment {
      * @param isVisible      是否可见
      * @param isFirstVisible 是否第一次可见
      */
-    protected abstract void visibleToUser(boolean isVisible, boolean isFirstVisible);
+    protected void visibleToUser(boolean isVisible, boolean isFirstVisible) {
+
+    }
 
 
     /**

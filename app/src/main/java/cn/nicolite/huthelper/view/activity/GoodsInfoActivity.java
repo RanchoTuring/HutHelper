@@ -73,6 +73,7 @@ public class GoodsInfoActivity extends BaseActivity implements IGoodsInfoView {
     private String goodsId;
     private String phone;
     private List<String> imageList = new ArrayList<>();
+    private List<String> imageSrcList = new ArrayList<>();
     private ImageAdapter adapter;
     private String username;
     private int position;
@@ -118,7 +119,7 @@ public class GoodsInfoActivity extends BaseActivity implements IGoodsInfoView {
             @Override
             public void onItemClick(View view, int position, long itemId) {
                 Bundle bundle = new Bundle();
-                bundle.putStringArrayList("images", (ArrayList<String>) imageList);
+                bundle.putStringArrayList("images", (ArrayList<String>) imageSrcList);
                 bundle.putInt("curr", position);
                 startActivity(ShowImageActivity.class, bundle);
             }
@@ -184,7 +185,9 @@ public class GoodsInfoActivity extends BaseActivity implements IGoodsInfoView {
         phone = goodsItem.getPhone();
         username = goodsItem.getUsername();
         imageList.clear();
-        imageList.addAll(goodsItem.getPics_src());
+        imageList.addAll(goodsItem.getPics());
+        imageSrcList.clear();
+        imageSrcList.addAll(goodsItem.getPics_src());
         tvSendtimeLost.setText(goodsItem.getCreated_on());
         tvTextLostTitle.setText(goodsItem.getTit());
         tvTextLost.setText(goodsItem.getContent());
@@ -194,20 +197,19 @@ public class GoodsInfoActivity extends BaseActivity implements IGoodsInfoView {
         tvGoodsTel.setText(TextUtils.isEmpty(phone) ? "无联系方式" : phone);
         tvGoodsLocation.setText(TextUtils.isEmpty(goodsItem.getAddress()) ? "湖工大" : goodsItem.getAddress());
 
-
-        List<String> pics_tub = goodsItem.getPics_src();
         if (!ListUtils.isEmpty(imageList)) {
             Glide
                     .with(this)
-                    .load(Constants.PICTURE_URL + pics_tub.get(0))
+                    .load(Constants.PICTURE_URL + imageList.get(0))
                     .skipMemoryCache(true)
                     .placeholder(R.drawable.blur_plac_min)
                     .error(R.drawable.blur_plac_min)
                     .bitmapTransform(new BlurTransformation(context, 100), new ColorFilterTransformation(this, 0x29000000))
                     .crossFade()
                     .into(ivBgimage);
-            adapter.notifyDataSetChanged();
+
         }
+        adapter.notifyDataSetChanged();
     }
 
     @Override

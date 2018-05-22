@@ -8,14 +8,19 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
 import java.io.ByteArrayOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cn.nicolite.huthelper.base.presenter.BasePresenter;
 import cn.nicolite.huthelper.db.dao.UserDao;
 import cn.nicolite.huthelper.model.bean.HttpResult;
+import cn.nicolite.huthelper.model.bean.UploadImages;
 import cn.nicolite.huthelper.model.bean.User;
 import cn.nicolite.huthelper.network.api.APIUtils;
 import cn.nicolite.huthelper.network.exception.ExceptionEngine;
+import cn.nicolite.huthelper.utils.EncryptUtils;
 import cn.nicolite.huthelper.view.activity.UserInfoActivity;
 import cn.nicolite.huthelper.view.iview.IUserInfoView;
 import io.reactivex.Observer;
@@ -60,40 +65,33 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView, UserInfoActi
             getView().showMessage("头像上传中！");
         }
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM", Locale.CHINA);
+        String date = simpleDateFormat.format(new Date());
+        String env = EncryptUtils.SHA1(configure.getStudentKH() + configure.getAppRememberCode() + date);
+
         APIUtils
                 .getUploadAPI()
-                .uploadAvatar(configure.getStudentKH(), configure.getAppRememberCode(), file)
-                .compose(getActivity().<HttpResult<String>>bindToLifecycle())
+                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env, 3, file)
+                .compose(getActivity().<UploadImages>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<HttpResult<String>>() {
+                .subscribe(new Observer<UploadImages>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-                        getActivity().showLoading();
+                        if (getView() != null) {
+                            getView().showLoading();
+                        }
                     }
 
                     @Override
-                    public void onNext(HttpResult<String> stringHttpResult) {
+                    public void onNext(UploadImages uploadImages) {
                         if (getView() != null) {
                             getView().closeLoading();
-                            String msg = stringHttpResult.getMsg();
-                            switch (msg) {
-                                case "ok":
-                                    msg = "修改成功!";
-                                    User user = configure.getUser();
-                                    user.setHead_pic_thumb(stringHttpResult.getData());
-                                    user.setHead_pic(stringHttpResult.getData());
-                                    daoSession.getUserDao().update(user);
-                                    getView().changeAvatarSuccess(bitmap);
-                                    break;
-                                case "令牌错误":
-                                    msg = "修改失败：帐号异地登录，请重新登录！";
-                                    break;
-                                default:
-                                    msg = stringHttpResult.getMsg();
-                                    break;
+                            if (uploadImages.getCode() == 200) {
+                                getView().showMessage("修改成功!");
+                            } else {
+                                getView().showMessage("修改失败!");
                             }
-                            getView().showMessage(msg);
                         }
                     }
 
@@ -103,7 +101,6 @@ public class UserInfoPresenter extends BasePresenter<IUserInfoView, UserInfoActi
                             getView().closeLoading();
                             getView().showMessage(ExceptionEngine.handleException(e).getMsg());
                         }
-
                     }
 
                     @Override

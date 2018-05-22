@@ -10,13 +10,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.Provider;
-import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.util.Arrays;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -105,51 +106,26 @@ public class EncryptUtils {
      * @param publicKey 公钥字符串
      * @return
      */
-    public static String RSAPublicKeyEncrypt(String env, InputStream publicKey) {
+    public static String RSAPublicKeyEncrypt(String env, String publicKey) {
 
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(publicKey));
-            StringBuilder stringBuilder = new StringBuilder();
-            String readLine;
-            while ((readLine = bufferedReader.readLine()) != null) {
-                if (readLine.charAt(0) != '-') {
-                    stringBuilder.append(readLine);
-                    stringBuilder.append('\r');
-                }
-            }
-            bufferedReader.close();
-            publicKey.close();
-
             //从字符串中获取公钥证书
             Provider provider = new BouncyCastleProvider();
-            byte[] decode = Base64.decode(stringBuilder.toString(), Base64.DEFAULT);
+            byte[] decode = Base64.decode(publicKey, Base64.DEFAULT);
             KeyFactory rsa = KeyFactory.getInstance("RSA", provider);
             X509EncodedKeySpec keySpec = new X509EncodedKeySpec(decode);
-            RSAPublicKey key = (RSAPublicKey) rsa.generatePublic(keySpec);
+            Key key = rsa.generatePublic(keySpec);
 
             //加密后 base64转码
             Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding", provider);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             byte[] doFinal = cipher.doFinal(env.getBytes("utf-8"));
-            byte[] encode = Base64.encode(doFinal, Base64.DEFAULT);
+            String encode = Base64.encodeToString(doFinal, Base64.DEFAULT);
 
-            return Base64.encodeToString(encode, Base64.DEFAULT);
+            return encode;
+            //return Base64.encodeToString(encode, Base64.DEFAULT);
 
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (InvalidKeySpecException e) {
-            e.printStackTrace();
-        } catch (NoSuchPaddingException e) {
-            e.printStackTrace();
-        } catch (InvalidKeyException e) {
-            e.printStackTrace();
-        } catch (BadPaddingException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IllegalBlockSizeException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException | NoSuchPaddingException | BadPaddingException | InvalidKeyException | IllegalBlockSizeException | IOException e) {
             e.printStackTrace();
         }
         return null;

@@ -39,8 +39,6 @@ public class UserInfoCardActivity extends BaseActivity implements IUserInfoCardV
     TextView tvUserName;
     @BindView(R.id.tv_user_bio)
     TextView tvUserBio;
-    @BindView(R.id.tv_user_class)
-    TextView tvUserClass;
     @BindView(R.id.tv_user_department)
     TextView tvUserDepartment;
     private UserInfoCardPresenter userInfoCardPresenter;
@@ -150,6 +148,8 @@ public class UserInfoCardActivity extends BaseActivity implements IUserInfoCardV
         Glide
                 .with(activity)
                 .load(imageUrl)
+                .placeholder(R.drawable.head_boy)
+                .error(R.drawable.say_default_head)
                 .bitmapTransform(new CropCircleTransformation(UserInfoCardActivity.this))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .dontAnimate()
@@ -157,8 +157,7 @@ public class UserInfoCardActivity extends BaseActivity implements IUserInfoCardV
                 .into(ivUserAvatar);
 
         tvUserName.setText(username);
-        tvUserBio.setText(TextUtils.isEmpty(user.getBio()) ? "没有签名" : user.getBio());
-        tvUserClass.setText(user.getClass_name());
+        tvUserBio.setText(TextUtils.isEmpty(user.getBio()) ? "TA什么也没留下" : user.getBio());
         tvUserDepartment.setText(user.getDep_name());
     }
 }

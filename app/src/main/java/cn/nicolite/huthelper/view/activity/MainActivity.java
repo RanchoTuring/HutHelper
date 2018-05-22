@@ -196,7 +196,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         mainPresenter.registerPush();
 
         mainPresenter.showNotice(false);
-        mainPresenter.startLoginService();
+       // mainPresenter.startLoginService(); //TODO 接口没了
         qBadgeView = new QBadgeView(context);
         qBadgeView.bindTarget(unReadMessage);
         qBadgeView.setBadgeGravity(Gravity.END | Gravity.TOP);

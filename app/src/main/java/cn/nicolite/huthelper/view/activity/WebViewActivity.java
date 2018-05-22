@@ -255,14 +255,17 @@ public class WebViewActivity extends BaseActivity {
     }
 
     private void addImgClickListener() {
-        webView.loadUrl("javascript:(function(){" +
-                "var objs = document.getElementsByTagName(\"img\"); " +
-                "for(var i=0;i<objs.length;i++){"
-                + "objs[i].onclick=function(){ "
-                + "window.imageListener.showImage(this.src);" +
-                "}" +
-                "}" +
-                "})()");
+        if (webView != null) {
+            webView.loadUrl("javascript:(function(){" +
+                    "var objs = document.getElementsByTagName(\"img\"); " +
+                    "for(var i=0;i<objs.length;i++){"
+                    + "objs[i].onclick=function(){ "
+                    + "window.imageListener.showImage(this.src);" +
+                    "}" +
+                    "}" +
+                    "})()");
+        }
+
     }
 
     @Override
@@ -491,7 +494,9 @@ public class WebViewActivity extends BaseActivity {
                             SnackbarUtils.showShortSnackbar(rootView, "获取数据失败！");
                             return;
                         }
-                        webView.loadDataWithBaseURL(null, s, "text/html", "UTF-8", null);
+                        if (webView != null) {
+                            webView.loadDataWithBaseURL(null, s, "text/html", "UTF-8", null);
+                        }
                     }
 
                     @Override

@@ -16,7 +16,6 @@ import cn.nicolite.huthelper.model.bean.Configure;
 
 public class DaoUtils {
 
-
     /**
      * 获取daoSession
      */

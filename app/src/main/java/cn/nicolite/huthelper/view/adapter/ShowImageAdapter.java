@@ -68,7 +68,7 @@ public class ShowImageAdapter extends PagerAdapter {
                 .error(R.drawable.img_error)
                 .skipMemoryCache(true)
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .dontAnimate()
+                .crossFade()
                 .centerCrop()
                 .into(new SimpleTarget<GlideDrawable>() {
                     @Override

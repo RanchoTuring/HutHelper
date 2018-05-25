@@ -63,34 +63,24 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tv_user_class"
+                android:id="@+id/tv_user_department"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:text="加载中..."
                 android:textColor="#FFADADAD"
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_user_department"
-                android:layout_width="match_parent"
-                android:layout_height="20dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="0.5dp"
-                android:gravity="center"
-                android:text="加载中..."
-                android:textColor="#FFADADAD"
-                android:textSize="12sp" />
-
-            <Button
                 android:id="@+id/bt_user_chat"
                 android:layout_width="207dp"
-                android:layout_height="35dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/bt_user_info_card"
+                android:gravity="center"
                 android:text="发起聊天"
                 android:textColor="#FF1DCBDB"
                 android:textSize="13sp" />
@@ -98,7 +88,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 android:weightSum="3">
 

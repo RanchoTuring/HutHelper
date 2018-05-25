@@ -224,7 +224,7 @@ public class UserInfoActivity extends BaseActivity implements IUserInfoView {
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<Uri> uriList = Matisse.obtainResult(data);
             if (!ListUtils.isEmpty(uriList)) {
-                Uri uri = uriList.get(0); //TODO don't work on Android 5.0.2 MIUI9 ReadMi Note2
+                Uri uri = uriList.get(0);
                 Intent intent = new Intent();
                 intent.setAction("com.android.camera.action.CROP");
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

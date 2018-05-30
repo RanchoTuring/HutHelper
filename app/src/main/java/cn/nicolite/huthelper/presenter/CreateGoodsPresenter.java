@@ -55,7 +55,7 @@ public class CreateGoodsPresenter extends BasePresenter<ICreateGoodsView, Create
 
         if (getView() != null) {
             if (TextUtils.isEmpty(phone)) {
-                getView().showMessage("联系方式必须填写");
+                getView().showMessage("联系方式必须填写！");
                 return;
             } else if (TextUtils.isEmpty(String.valueOf(attr))) {
                 getView().showMessage("请选择商品成色");

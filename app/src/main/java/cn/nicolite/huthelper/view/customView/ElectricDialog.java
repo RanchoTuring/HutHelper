@@ -24,9 +24,9 @@ public class ElectricDialog {
 
     public ElectricDialog(Context context) {
         view = LayoutInflater.from(context).inflate(R.layout.dialog_electric, null, false);
-        //余电
+        // 余电
         tvAmmeter = (TextView) view.findViewById(R.id.tv_eledialog_yudian);
-        //余额
+        // 余额
         tvBalance = (TextView) view.findViewById(R.id.tv_eledialog_yue);
         ok = (Button) view.findViewById(R.id.btn_eledialog_ok);
 

@@ -340,7 +340,7 @@ public class MainActivity extends BaseActivity implements IMainView {
             case R.id.tv_nav_logout:
                 final CommonDialog commonDialog = new CommonDialog(context);
                 commonDialog
-                        .setMessage("确定退出？")
+                        .setMessage("你确定退出？")
                         .setPositiveButton("是的", new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

@@ -116,7 +116,7 @@ public class GoodsInfoPresenter extends BasePresenter<IGoodsInfoView, GoodsInfoA
                         if (getView() != null) {
                             getView().closeLoading();
                             if (stringHttpResult.getCode() == 200) {
-                                getView().showMessage("删除成功！");
+                                getView().showMessage(" 删除成功！");
                                 getView().deleteSuccess();
                             } else {
                                 getView().showMessage("删除失败，" + stringHttpResult.getCode());

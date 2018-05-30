@@ -34,7 +34,7 @@ public class LineChartView extends View {
     private static final String[] XQ_INDEX = {"大一上", "大一下", "大二上", "大二下", "大三上", "大三下", "大四上", "大四下", "大五上", "大五下"};
     private static final String[] XN_INDEX = {"大一", "大二", "大三", "大四", "大五"};
     private TextPaint titlePaint;   // 标题 28号 adadad
-    private Paint linePaint1;   //一号线
+    private Paint linePaint1;   //  一号线
     private Paint linePaint2;   //二号线
     private Paint circlePaint;  //空心圆
     private Paint bgLinePaint;  //背景线

@@ -95,7 +95,7 @@ public class MainPresenter extends BasePresenter<IMainView, MainActivity> {
                                 if (!ListUtils.isEmpty(list)) {
                                     getView().showTimeAxis(list);
                                 }
-                                getView().showMessage("未获取到时间轴数据！");
+                                getView().showMessage("未获取到时间轴数据");
                             }
                         }
                     }

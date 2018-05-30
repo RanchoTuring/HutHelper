@@ -76,7 +76,7 @@ public class GoodsInfoPresenter extends BasePresenter<IGoodsInfoView, GoodsInfoA
     public void deleteGoods(String goodId) {
         if (TextUtils.isEmpty(userId)) {
             if (getView() != null) {
-                getView().showMessage("获取用户信息失败！");
+                getView().showMessage(" 获取用户信息失败！");
             }
             return;
         }

@@ -251,7 +251,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         mainPresenter.initUser();
         mainPresenter.showTimeAxis();
         mainPresenter.showSyllabus();
-        mainPresenter.showWeather();
+
         mainPresenter.checkPermission();
         mainPresenter.registerPush();
 

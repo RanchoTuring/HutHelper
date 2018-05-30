@@ -33,15 +33,6 @@ public class ElectricPresenter extends BasePresenter<IElectricView, ElectricActi
 
     public static final String YES = "1";
     public static final String NO = "2";
-    public String part="1";
-
-
-
-    public void setPart(String part){
-        this.part=part;
-    }
-
-
 
     public ElectricPresenter(IElectricView view, ElectricActivity activity) {
         super(view, activity);
@@ -95,7 +86,7 @@ public class ElectricPresenter extends BasePresenter<IElectricView, ElectricActi
 
         APIUtils
                 .getElectricAPI()
-                .getElectric(part,lou, hao, configure.getStudentKH(), configure.getAppRememberCode(), env)
+                .getElectric(lou, hao, configure.getStudentKH(), configure.getAppRememberCode(), env)
                 .compose(getActivity().<Electric>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

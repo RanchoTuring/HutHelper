@@ -1,11 +1,13 @@
 package cn.nicolite.huthelper.view.activity;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -33,10 +35,6 @@ public class ElectricActivity extends BaseActivity implements IElectricView {
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
-    @BindView(R.id.tv_wd_temp)
-    TextView tvWdTemp;
-    @BindView(R.id.tv_wd_location)
-    TextView tvWdLocation;
     @BindView(R.id.et_electric_lou)
     EditText etElectricLou;
     @BindView(R.id.et_electric_hao)
@@ -52,6 +50,7 @@ public class ElectricActivity extends BaseActivity implements IElectricView {
     @BindView(R.id.rootView)
     LinearLayout rootView;
     private ElectricPresenter electricPresenter;
+
 
     @Override
     protected void initConfig(Bundle savedInstanceState) {
@@ -130,8 +129,7 @@ public class ElectricActivity extends BaseActivity implements IElectricView {
 
     @Override
     public void showWeather(String city, String tmp, String content) {
-        tvWdLocation.setText(String.valueOf(city + "|" + content));
-        tvWdTemp.setText(String.valueOf(tmp + "℃"));
+
     }
 
     @Override

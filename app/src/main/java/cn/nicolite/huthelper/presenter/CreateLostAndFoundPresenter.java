@@ -102,7 +102,7 @@ public class CreateLostAndFoundPresenter extends BasePresenter<ICreateLostAndFou
 
         APIUtils
                 .getUploadAPI()
-                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env, 2, file)
+                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env,2,  file)
                 .compose(getActivity().<UploadImages>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

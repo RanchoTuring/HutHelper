@@ -3,6 +3,7 @@ package cn.nicolite.huthelper.view.customView;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -110,7 +111,8 @@ public abstract class PictureLayout extends ViewGroup {
             setVisibility(GONE);
         }
         if (size == 1) {
-            String url = urlList.get(0);
+            String url=urlList.get(0);
+
             RatioImageView imageView = createImageView(0, url);
             LayoutParams params = getLayoutParams();
             params.height = singleWidth;
@@ -127,7 +129,9 @@ public abstract class PictureLayout extends ViewGroup {
         generateChildrenLayout(size);
         layoutParams();
         for (int i = 0; i < size; i++) {
-            String url = urlList.get(i);
+            String url=urlList.get(i);
+
+
             RatioImageView imageView;
             if (!isShowAll) {
                 if (i < MAX_COUNT - 1) {

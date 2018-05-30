@@ -52,26 +52,9 @@
             android:layout_marginTop="55dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_wd_temp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:fontFamily="sans-serif-thin"
-                android:gravity="center"
-                android:text="N/A"
-                android:textColor="@color/white"
-                android:textSize="30sp"
-                android:textStyle="normal" />
 
-            <TextView
-                android:id="@+id/tv_wd_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="株洲 | 阴"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -81,11 +64,20 @@
             android:paddingEnd="10dp"
             android:paddingStart="10dp">
 
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/adView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                ads:adSize="BANNER"
+                ads:adUnitId="ca-app-pub-4407645201815399/9473005500">
+            </com.google.android.gms.ads.AdView>
+
             <TextView
                 android:id="@+id/tv_course_maincontent"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="120dp"
+                android:layout_marginTop="30dp"
                 android:text="下节课：计算机网络 公共楼211"
                 android:textColor="@color/white"
                 android:textSize="12sp" />

@@ -2,10 +2,9 @@ package cn.nicolite.huthelper.presenter;
 
 import android.Manifest;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 
+import com.google.android.gms.ads.InterstitialAd;
 import com.tencent.android.tpush.XGIOperateCallback;
 import com.tencent.android.tpush.XGPushConfig;
 import com.tencent.android.tpush.XGPushManager;
@@ -13,9 +12,7 @@ import com.yanzhenjie.permission.AndPermission;
 import com.yanzhenjie.permission.PermissionListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import cn.nicolite.huthelper.BuildConfig;
 import cn.nicolite.huthelper.app.MApplication;
@@ -24,7 +21,6 @@ import cn.nicolite.huthelper.db.dao.LessonDao;
 import cn.nicolite.huthelper.db.dao.MenuDao;
 import cn.nicolite.huthelper.db.dao.NoticeDao;
 import cn.nicolite.huthelper.db.dao.TimeAxisDao;
-import cn.nicolite.huthelper.model.Constants;
 import cn.nicolite.huthelper.model.bean.HttpResult;
 import cn.nicolite.huthelper.model.bean.Lesson;
 import cn.nicolite.huthelper.model.bean.Menu;
@@ -40,7 +36,6 @@ import cn.nicolite.huthelper.utils.CommUtil;
 import cn.nicolite.huthelper.utils.ListUtils;
 import cn.nicolite.huthelper.utils.LogUtils;
 import cn.nicolite.huthelper.view.activity.MainActivity;
-import cn.nicolite.huthelper.view.activity.NoticeItemActivity;
 import cn.nicolite.huthelper.view.activity.WebViewActivity;
 import cn.nicolite.huthelper.view.customView.CommonDialog;
 import cn.nicolite.huthelper.view.iview.IMainView;
@@ -169,6 +164,8 @@ public class MainPresenter extends BasePresenter<IMainView, MainActivity> {
 
     public void showNotice(boolean isReceiver) {
 
+
+
         NoticeDao noticeDao = daoSession.getNoticeDao();
         List<Notice> list = noticeDao.queryBuilder()
                 .where(NoticeDao.Properties.UserId.eq(userId))
@@ -178,6 +175,7 @@ public class MainPresenter extends BasePresenter<IMainView, MainActivity> {
         if (!ListUtils.isEmpty(list) && getView() != null) {
             getView().showNotice(list.get(0), isReceiver);
         }
+
 
     }
 
@@ -262,50 +260,7 @@ public class MainPresenter extends BasePresenter<IMainView, MainActivity> {
 
     }
 
-    //必须调用此接口以记录该用户是否使用工大助手
-    public void checkUpdate() {
 
-        APIUtils
-                .getUpdateAPI()
-                .checkUpdate(configure.getStudentKH(), configure.getAppRememberCode())
-                .compose(getActivity().<HttpResult<Update>>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.io())
-                .subscribe(new Observer<HttpResult<Update>>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@io.reactivex.annotations.NonNull HttpResult<Update> updateHttpResult) {
-                        if (updateHttpResult.getCode() == 200) {
-                            Update data = updateHttpResult.getData();
-                            if (data == null) {
-                                return;
-                            }
-
-                            configure.setLibraryUrl(data.getApi_base_address().getLibrary());
-                            configure.setTestPlanUrl(data.getApi_base_address().getTest_plan());
-                            configure.setNewTermDate(data.getSchool_opens());
-                            configure.update();
-
-                        }
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-
-
-    }
 
     public void registerPush() {
         XGPushManager.registerPush(getActivity().getApplicationContext(), configure.getStudentKH(), new XGIOperateCallback() {
@@ -345,7 +300,7 @@ public class MainPresenter extends BasePresenter<IMainView, MainActivity> {
 
     public void startChat() {
         //TODO 开始聊天， 待添加
-        final CommonDialog commonDialog = new CommonDialog(getActivity());
+       final CommonDialog commonDialog = new CommonDialog(getActivity());
         commonDialog
                 .setMessage("私信暂时下线，新的私信已经在路上了！")
                 .setPositiveButton("知道了", null)

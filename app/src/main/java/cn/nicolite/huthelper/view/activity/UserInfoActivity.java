@@ -27,6 +27,7 @@ import cn.nicolite.huthelper.R;
 import cn.nicolite.huthelper.base.activity.BaseActivity;
 import cn.nicolite.huthelper.model.Constants;
 import cn.nicolite.huthelper.model.bean.Configure;
+import cn.nicolite.huthelper.model.bean.Say;
 import cn.nicolite.huthelper.model.bean.User;
 import cn.nicolite.huthelper.presenter.UserInfoPresenter;
 import cn.nicolite.huthelper.utils.DensityUtils;
@@ -67,6 +68,7 @@ public class UserInfoActivity extends BaseActivity implements IUserInfoView {
     @BindView(R.id.tv_user_bio)
     TextView tvUserBio;
     private UserInfoPresenter userInfoPresenter;
+    private Say say;
     private final int REQUEST_CODE_CHOOSE = 111;
     private final int REQUEST_CODE_CUT = 222;
 
@@ -224,7 +226,7 @@ public class UserInfoActivity extends BaseActivity implements IUserInfoView {
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             List<Uri> uriList = Matisse.obtainResult(data);
             if (!ListUtils.isEmpty(uriList)) {
-                Uri uri = uriList.get(0); //TODO don't work on Android 5.0.2 MIUI9 ReadMi Note2
+                Uri uri = uriList.get(0);
                 Intent intent = new Intent();
                 intent.setAction("com.android.camera.action.CROP");
                 intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);

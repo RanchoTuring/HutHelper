@@ -2,7 +2,6 @@ package cn.nicolite.huthelper.receiver;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
 
@@ -16,9 +15,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import cn.nicolite.huthelper.app.MApplication;
-import cn.nicolite.huthelper.db.DaoHelper;
-import cn.nicolite.huthelper.db.dao.DaoSession;
+import cn.nicolite.huthelper.db.DaoUtils;
 import cn.nicolite.huthelper.db.dao.NoticeDao;
 import cn.nicolite.huthelper.model.Constants;
 import cn.nicolite.huthelper.model.bean.Notice;
@@ -79,8 +76,8 @@ public class XinGeReceiver extends XGPushBaseReceiver {
         notice.setTitle(xgPushShowedResult.getTitle());
         notice.setContent(xgPushShowedResult.getContent());
         notice.setTime(simpleDateFormat.format(new Date()));
-        notice.setUserId(getLoginUser());
-        NoticeDao noticeDao = getDaoSession().getNoticeDao();
+        notice.setUserId(DaoUtils.getLoginUser());
+        NoticeDao noticeDao = DaoUtils.getDaoSession().getNoticeDao();
         noticeDao.insert(notice);
 
         //发送广播通知更新
@@ -89,21 +86,6 @@ public class XinGeReceiver extends XGPushBaseReceiver {
         bundle.putInt("type", Constants.BROADCAST_TYPE_NOTICE);
         intent.putExtras(bundle);
         LocalBroadcastManager.getInstance(context).sendBroadcast(intent);
-    }
-
-    /**
-     * 获取daoSession
-     */
-    protected DaoSession getDaoSession() {
-        return DaoHelper.getDaoHelper(MApplication.AppContext).getDaoSession();
-    }
-
-    /**
-     * 获取当前登录用户
-     */
-    protected String getLoginUser() {
-        SharedPreferences preferences = MApplication.AppContext.getSharedPreferences("login_user", Context.MODE_PRIVATE);
-        return preferences.getString("userId", null);
     }
 
 }

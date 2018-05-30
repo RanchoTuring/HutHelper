@@ -41,7 +41,7 @@ public class LoginService extends IntentService {
     private static final String TAG = "LoginService";
     private Timer timer;
 
-    private DaoSession daoSession = DaoHelper.getDaoHelper(MApplication.AppContext).getDaoSession();
+    private DaoSession daoSession = DaoHelper.getDaoHelper(MApplication.appContext).getDaoSession();
     private Intent intent;
 
     public LoginService() {
@@ -132,14 +132,15 @@ public class LoginService extends IntentService {
         stop();
     }
 
-    private void stop(){
+    private void stop() {
         if (timer != null) {
             timer.cancel();
         }
-        if (intent != null){
+        if (intent != null) {
             stopService(intent);
         }
     }
+
     @Override
     public void onDestroy() {
         super.onDestroy();

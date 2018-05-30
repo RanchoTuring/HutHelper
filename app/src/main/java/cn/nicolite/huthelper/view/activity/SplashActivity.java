@@ -3,10 +3,19 @@ package cn.nicolite.huthelper.view.activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
+
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -16,6 +25,9 @@ import cn.nicolite.huthelper.R;
 import cn.nicolite.huthelper.base.activity.BaseActivity;
 import cn.nicolite.huthelper.model.bean.Configure;
 import cn.nicolite.huthelper.utils.ListUtils;
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 闪屏页
@@ -24,41 +36,55 @@ import cn.nicolite.huthelper.utils.ListUtils;
 
 public class SplashActivity extends BaseActivity {
 
-    @BindView(R.id.img)
-    ImageView imageView;
 
+
+
+  @BindView(R.id.img)
+ ImageView imageView;
     private final int[] bgs = {R.drawable.start_1, R.drawable.start_2, R.drawable.start_3,
             R.drawable.start_4, R.drawable.start_5};
 
+    private InterstitialAd interstitialAd;
     private static final int what = 958;
-
     private final MyHandler handler = new MyHandler(this);
 
-    private static class MyHandler extends Handler {
-        private final WeakReference<SplashActivity> activityWeakReference;
+  private static class MyHandler extends Handler {
+     private final WeakReference<SplashActivity> activityWeakReference;
 
-        private MyHandler(SplashActivity activity) {
-            this.activityWeakReference = new WeakReference<SplashActivity>(activity);
-        }
+    private MyHandler(SplashActivity activity) {
+       this.activityWeakReference = new WeakReference<SplashActivity>(activity);
+       }
 
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            SplashActivity splashActivity = activityWeakReference.get();
-            switch (msg.what) {
-                case what:
-                    if (splashActivity != null) {
-                        if (splashActivity.isLogin()) {
-                            splashActivity.startActivity(MainActivity.class);
+
+
+     @Override
+      public void handleMessage(Message msg) {
+          super.handleMessage(msg);
+         SplashActivity splashActivity = activityWeakReference.get();
+          switch (msg.what) {
+             case what:
+                 if (splashActivity != null) {
+                      if (splashActivity.isLogin()) {
+                         splashActivity.startActivity(MainActivity.class);
+
                         } else {
                             splashActivity.startActivity(LoginActivity.class);
-                        }
-                        splashActivity.finish();
-                    }
+                     }
+                       splashActivity.finish();
+                }
                     break;
-            }
+       }
         }
     }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
+
+
 
     @Override
     protected void initConfig(Bundle savedInstanceState) {
@@ -99,4 +125,10 @@ public class SplashActivity extends BaseActivity {
 
         return userId != null && !userId.equals("*") && !ListUtils.isEmpty(getConfigureList());
     }
+
+
+
+
+
+
 }

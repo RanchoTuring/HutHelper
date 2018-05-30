@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +39,6 @@ public class UserInfoCardActivity extends BaseActivity implements IUserInfoCardV
     TextView tvUserName;
     @BindView(R.id.tv_user_bio)
     TextView tvUserBio;
-    @BindView(R.id.tv_user_class)
-    TextView tvUserClass;
     @BindView(R.id.tv_user_department)
     TextView tvUserDepartment;
     private UserInfoCardPresenter userInfoCardPresenter;
@@ -143,18 +142,22 @@ public class UserInfoCardActivity extends BaseActivity implements IUserInfoCardV
     @Override
     public void showInfo(User user) {
         avatarUrlList.clear();
-        avatarUrlList.add(user.getHead_pic_thumb());
+        avatarUrlList.add(user.getHead_pic());
+        String imageUrl = TextUtils.isEmpty(user.getHead_pic()) ? Constants.PICTURE_URL + user.getHead_pic() :
+                Constants.PICTURE_URL + user.getHead_pic_thumb();
         Glide
                 .with(activity)
-                .load(Constants.PICTURE_URL + user.getHead_pic_thumb())
+                .load(imageUrl)
+                .placeholder(R.drawable.head_boy)
+                .error(R.drawable.say_default_head)
                 .bitmapTransform(new CropCircleTransformation(UserInfoCardActivity.this))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .dontAnimate()
                 .skipMemoryCache(true)
                 .into(ivUserAvatar);
 
         tvUserName.setText(username);
-        tvUserBio.setText(TextUtils.isEmpty(user.getBio()) ? "没有签名" : user.getBio());
-        tvUserClass.setText(user.getClass_name());
+        tvUserBio.setText(TextUtils.isEmpty(user.getBio()) ? "TA什么也没留下" : user.getBio());
         tvUserDepartment.setText(user.getDep_name());
     }
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -28,6 +30,8 @@ import cn.nicolite.huthelper.view.customView.NinePictureLayout;
 import cn.nicolite.huthelper.view.customView.NoScrollLinearLayoutManager;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
+import static android.text.TextUtils.replace;
+
 /**
  * Created by nicolite on 17-11-14.
  */
@@ -42,7 +46,7 @@ public class SayAdapter extends RecyclerView.Adapter<SayAdapter.SayViewHolder> {
     public SayAdapter(Context context, List<Say> sayList) {
         this.context = context;
         this.sayList = sayList;
-        SharedPreferences preferences = MApplication.AppContext.getSharedPreferences("login_user", Context.MODE_PRIVATE);
+        SharedPreferences preferences = MApplication.appContext.getSharedPreferences("login_user", Context.MODE_PRIVATE);
         userId = preferences.getString("userId", "");
     }
 
@@ -55,13 +59,15 @@ public class SayAdapter extends RecyclerView.Adapter<SayAdapter.SayViewHolder> {
     @Override
     public void onBindViewHolder(final SayViewHolder holder, final int position) {
         final Say say = sayList.get(position);
-
+        String imageUrl = TextUtils.isEmpty(say.getHead_pic()) ? Constants.PICTURE_URL + say.getHead_pic() :
+                Constants.PICTURE_URL + say.getHead_pic();
         Glide
                 .with(context)
-                .load(Constants.PICTURE_URL + say.getHead_pic_thumb())
+                .load(imageUrl)
                 .bitmapTransform(new CropCircleTransformation(context))
                 .placeholder(R.drawable.say_default_head)
                 .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .error(R.drawable.say_default_head)
                 .dontAnimate()
                 .into(holder.ivItemSayAvatar);
@@ -120,8 +126,8 @@ public class SayAdapter extends RecyclerView.Adapter<SayAdapter.SayViewHolder> {
         });
 
         final List<String> pics = say.getPics();
-        holder.rvItemSayimg.setUrlList(pics);
 
+        holder.rvItemSayimg.setUrlList(pics);
         int num = say.getComments().size();
         if (num == 0) {
             holder.rvSayComments.setVisibility(View.GONE);

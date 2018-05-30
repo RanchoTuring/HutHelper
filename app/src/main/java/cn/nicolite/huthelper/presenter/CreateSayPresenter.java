@@ -102,7 +102,7 @@ public class CreateSayPresenter extends BasePresenter<ICreateSayView, CreateSayA
 
         APIUtils
                 .getUploadAPI()
-                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env, 0, file)
+                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env,0,  file)
                 .compose(getActivity().<UploadImages>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

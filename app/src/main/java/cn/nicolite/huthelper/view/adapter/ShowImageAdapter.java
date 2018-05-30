@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
@@ -25,7 +26,7 @@ import cn.nicolite.huthelper.utils.ListUtils;
  * Created by nicolite on 17-8-22.
  */
 
-public class ShowImageAdapter extends PagerAdapter{
+public class ShowImageAdapter extends PagerAdapter {
     private Context context;
     private List<String> images;
 
@@ -56,7 +57,13 @@ public class ShowImageAdapter extends PagerAdapter{
         final PhotoViewAttacher attacher = new PhotoViewAttacher(imageView);
         String url = images.get(position);
 
-        if (!url.startsWith("http") && !url.startsWith("https")){
+        if (url.endsWith("_thumb.png"))
+        {
+            url =  url.substring(0,url.length()-10)+".png";
+        }else if (url.endsWith("_thumb.jpg")){
+            url = url.substring(0,url.length()-10)+".jpg";
+        }
+        if (!url.startsWith("http") && !url.startsWith("https")) {
             url = Constants.PICTURE_URL + url;
         }
 
@@ -66,6 +73,7 @@ public class ShowImageAdapter extends PagerAdapter{
                 .placeholder(R.drawable.img_loading)
                 .error(R.drawable.img_error)
                 .skipMemoryCache(true)
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .crossFade()
                 .centerCrop()
                 .into(new SimpleTarget<GlideDrawable>() {

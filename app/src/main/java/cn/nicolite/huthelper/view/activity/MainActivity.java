@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +19,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.tencent.android.tpush.XGPushManager;
 import com.tencent.bugly.beta.Beta;
 import com.tencent.bugly.crashreport.CrashReport;
@@ -59,10 +67,6 @@ public class MainActivity extends BaseActivity implements IMainView {
 
     @BindView(R.id.unReadMessage)
     FrameLayout unReadMessage;
-    @BindView(R.id.tv_wd_temp)
-    TextView tvWdTemp;
-    @BindView(R.id.tv_wd_location)
-    TextView tvWdLocation;
     @BindView(R.id.tv_course_maincontent)
     TextView tvCourseMaincontent;
     @BindView(R.id.tv_date_maincontent)
@@ -92,6 +96,9 @@ public class MainActivity extends BaseActivity implements IMainView {
     @BindView(R.id.tv_nav_name)
     RichTextView tvNavName;
     private MainPresenter mainPresenter;
+    @BindView(R.id.adView)
+    AdView adView;
+
     private long exitTime = 0;
     private List<Menu> menuList = new ArrayList<>();
     private MenuAdapter menuAdapter;
@@ -102,6 +109,59 @@ public class MainActivity extends BaseActivity implements IMainView {
     private LocalBroadcastManager localBroadcastManager;
     private IntentFilter intentFilter;
     private MainReceiver mainReceiver;
+    private InterstitialAd interstitialAd;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+
+        //初始化
+        MobileAds.initialize(this,"ca-app-pub-4407645201815399~1074521179");
+        //横幅广告
+        AdRequest request = new AdRequest.Builder().build();
+        adView.loadAd(request);
+
+        //全屏广告
+
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+
+        //事件监听
+        adView.setAdListener(new AdListener(){
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(int errorCode) {
+                // Code to be executed when an ad request fails.
+
+
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdLeftApplication() {
+                // Code to be executed when the user has left the app.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
+
+    }
+
 
     @Override
     protected void initConfig(Bundle savedInstanceState) {
@@ -187,7 +247,7 @@ public class MainActivity extends BaseActivity implements IMainView {
 
         mainPresenter = new MainPresenter(this, this);
         mainPresenter.showMenu();
-        mainPresenter.checkUpdate();
+
         mainPresenter.initUser();
         mainPresenter.showTimeAxis();
         mainPresenter.showSyllabus();
@@ -196,7 +256,7 @@ public class MainActivity extends BaseActivity implements IMainView {
         mainPresenter.registerPush();
 
         mainPresenter.showNotice(false);
-        mainPresenter.startLoginService();
+       // mainPresenter.startLoginService(); //TODO 接口没了
         qBadgeView = new QBadgeView(context);
         qBadgeView.bindTarget(unReadMessage);
         qBadgeView.setBadgeGravity(Gravity.END | Gravity.TOP);
@@ -266,7 +326,13 @@ public class MainActivity extends BaseActivity implements IMainView {
                 mainPresenter.startChat();
                 break;
             case R.id.tv_nav_update:
-                Beta.checkUpgrade();
+               // Beta.checkUpgrade();
+
+                if (interstitialAd.isLoaded()){
+                    interstitialAd.show();
+                }else {
+                    startActivity(AdActivity.class);
+                }
                 break;
             case R.id.tv_nav_share:
                 mainPresenter.share();
@@ -343,10 +409,10 @@ public class MainActivity extends BaseActivity implements IMainView {
         SnackbarUtils.showShortSnackbar(rootView, msg);
     }
 
+
     @Override
     public void showWeather(String city, String tmp, String content) {
-        tvWdLocation.setText(String.valueOf(city + "|" + content));
-        tvWdTemp.setText(String.valueOf(tmp + "℃"));
+
     }
 
     @Override

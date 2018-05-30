@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="cn.nicolite.huthelper">
 
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -20,13 +21,12 @@
         android:name="cn.nicolite.huthelper.permission.XINGEPUSH_RECEIVE"
         android:protectionLevel="signature" />
 
-    <!--小米推送-->
+    <!-- 小米推送 -->
     <permission
         android:name="cn.nicolite.huthelper.permission.MIPUSH_RECEIVE"
         android:protectionLevel="signature" />
 
     <uses-permission android:name="cn.nicolite.huthelper.permission.MIPUSH_RECEIVE" />
-
     <uses-permission android:name="android.permission.GET_TASKS" />
 
     <application
@@ -44,162 +44,123 @@
             android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name=".view.activity.MainActivity"
-            android:launchMode="singleTask"
-            android:theme="@style/MainActivity" />
-
         <activity
             android:name=".view.activity.LoginActivity"
             android:theme="@style/MainActivity" />
-
         <activity
             android:name=".view.activity.WebViewActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.ShowImageActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.AboutActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.FeedBackActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.UserInfoActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.ElectricActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.ExamActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.OffsiteLoginDialogActivity"
             android:theme="@style/Transparent" />
-
         <activity
             android:name=".view.activity.ExpLessonActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.CareerTalkActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.CareerTalkItemActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.MarketActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.GoodsInfoActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.SearchActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.SearchResultActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.CreateGoodsActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.UserInfoCardActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.LostAndFoundActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.CreateLostAndFoundActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.LostAndFoundInfoActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.GradeRankActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.GradeListActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.AllActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.CalendarActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.FreshmanGuideActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.SyllabusActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.SyllabusItemActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.SayActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.CreateSayActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.VideoActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.VideoItemActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.VideoH5PlayerActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:hardwareAccelerated="true"
             android:screenOrientation="landscape"
             android:theme="@style/VideoViewH5" />
-
         <activity
             android:name=".view.activity.NoticeActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name=".view.activity.NoticeItemActivity"
             android:theme="@style/AppTheme" />
-
         <activity
             android:name="com.tencent.bugly.beta.ui.BetaActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|locale"
             android:theme="@android:style/Theme.Translucent" />
+        <activity android:name=".view.activity.MainActivity" />
 
         <service android:name=".services.LoginService" />
 
@@ -226,7 +187,7 @@
                 tools:replace="name,resource" />
         </provider>
 
-        <!-- Glide 使用OkHttp作为网络连接-->
+        <!-- Glide 使用OkHttp作为网络连接 -->
         <meta-data
             android:name="com.bumptech.glide.integration.okhttp3.OkHttpGlideModule"
             android:value="GlideModule" />
@@ -237,6 +198,7 @@
             android:exported="true"
             android:permission="cn.nicolite.huthelper.permission.XINGEPUSH_RECEIVE">
             <intent-filter>
+
                 <!-- 接收消息透传 -->
                 <action android:name="com.tencent.android.tpush.action.PUSH_MESSAGE" />
                 <!-- 监听注册、反注册、设置/删除标签、通知被点击等处理结果 -->
@@ -252,11 +214,19 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>
+
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/coursewidget_provider_info" />
         </receiver>
 
+        <activity android:name=".view.activity.AdActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.ad"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

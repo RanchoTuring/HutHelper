@@ -155,14 +155,18 @@ public abstract class BaseActivity extends RxAppCompatActivity {
     /**
      * 初始化Activity配置,
      */
-    protected abstract void initConfig(Bundle savedInstanceState);
+    protected void initConfig(Bundle savedInstanceState) {
+
+    }
 
     /**
      * 初始化Bundle参数
      *
      * @param bundle
      */
-    protected abstract void initBundleData(Bundle bundle);
+    protected void initBundleData(Bundle bundle) {
+
+    }
 
     /**
      * 获取 xml layout

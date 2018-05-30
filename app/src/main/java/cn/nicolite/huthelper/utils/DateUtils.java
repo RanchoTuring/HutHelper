@@ -10,10 +10,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import cn.nicolite.huthelper.app.MApplication;
-import cn.nicolite.huthelper.db.DaoHelper;
 import cn.nicolite.huthelper.db.DaoUtils;
-import cn.nicolite.huthelper.db.dao.ConfigureDao;
 import cn.nicolite.huthelper.model.bean.Configure;
 
 /**

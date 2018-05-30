@@ -137,7 +137,7 @@ public class CreateGoodsPresenter extends BasePresenter<ICreateGoodsView, Create
 
         APIUtils
                 .getUploadAPI()
-                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env,  file)
+                .uploadImages(configure.getStudentKH(), configure.getAppRememberCode(), env,1,  file)
                 .compose(getActivity().<UploadImages>bindToLifecycle())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -190,6 +190,7 @@ public class CreateGoodsPresenter extends BasePresenter<ICreateGoodsView, Create
     }
 
     public void selectImages() {
+
         AndPermission
                 .with(getActivity())
                 .requestCode(100)

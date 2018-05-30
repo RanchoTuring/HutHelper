@@ -38,6 +38,7 @@ public class NinePictureLayout extends PictureLayout {
     @Override
     protected boolean displayOneImage(final RatioImageView imageView, String url, final int parentWidth) {
 
+
         Glide
                 .with(context)
                 .load(Constants.PICTURE_URL + url)
@@ -86,6 +87,8 @@ public class NinePictureLayout extends PictureLayout {
 
     @Override
     protected void displayImage(RatioImageView imageView, String url) {
+
+
         Glide
                 .with(context)
                 .load(Constants.PICTURE_URL + url)
@@ -98,6 +101,7 @@ public class NinePictureLayout extends PictureLayout {
 
     @Override
     protected void onClickImage(int position, String url, List<String> urlList) {
+
         Bundle bundle = new Bundle();
         bundle.putStringArrayList("images", (ArrayList<String>) urlList);
         bundle.putInt("curr", position);

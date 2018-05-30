@@ -71,7 +71,7 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="工大助手APP由湖南工业大学计算机实验室网络组和移动组开发、致力于帮助校友们更加便捷的体验校园生活。"
+                    android:text="开发者：陈林祥 "
                     android:textColor="#404040"
                     android:textSize="14sp" />
 
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
-                    android:text="团队成员：陈林祥（Android） 汪小祯（iOS） 曾恒(产品策划) 董志东（后台开发） 刘春杰（UI交互） 方泽洲（微信小程序）"
+                    android:text="工大助手微信小程序：在微信中搜索「HUT助手」。工大助手广告 触及四万用户的机会,广告招商合作联系QQ：Tony 995729504"
                     android:textColor="#404040"
                     android:textSize="14sp" />
 

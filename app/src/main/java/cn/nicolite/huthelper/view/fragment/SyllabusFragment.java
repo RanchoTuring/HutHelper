@@ -529,7 +529,7 @@ public class SyllabusFragment extends BaseFragment {
                         }
                     });
                     //添加布局
-                    if (mTable.get().mUserCourseLayout != null){
+                    if (mTable.get().mUserCourseLayout != null) {
                         mTable.get().mUserCourseLayout.addView(lesson);
                     }
 

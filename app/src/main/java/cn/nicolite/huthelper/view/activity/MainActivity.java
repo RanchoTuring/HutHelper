@@ -352,7 +352,7 @@ public class MainActivity extends BaseActivity implements IMainView {
                                 finish();
                             }
                         })
-                        .setNegativeButton("再想想", null)
+                        .setNegativeButton("算了吧", null)
                         .show();
                 break;
             case R.id.tv_nav_about:

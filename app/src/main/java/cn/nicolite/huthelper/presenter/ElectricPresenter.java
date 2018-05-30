@@ -71,7 +71,7 @@ public class ElectricPresenter extends BasePresenter<IElectricView, ElectricActi
 
         if (TextUtils.isEmpty(lou) || TextUtils.isEmpty(hao)) {
             if (getView() != null) {
-                getView().showMessage("宿舍楼栋和宿舍号不能为空");
+                getView().showMessage("宿舍楼栋与宿舍号不能为空");
             }
             return;
         }

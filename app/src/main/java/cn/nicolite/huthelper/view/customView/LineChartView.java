@@ -37,7 +37,7 @@ public class LineChartView extends View {
     private Paint linePaint1;   //  一号线
     private Paint linePaint2;   // 二号线
     private Paint circlePaint;  //  空心圆
-    private Paint bgLinePaint;  //背景线
+    private Paint bgLinePaint;  // 背景线
     private TextPaint valuePaint1;   //数值
     private TextPaint valuePaint2;   //数值
     private TextPaint labelPaint;   //左侧标注

@@ -240,7 +240,7 @@ public class MainActivity extends BaseActivity implements IMainView {
                         e.printStackTrace();
                     }
                 } else {
-                    showMessage("你点的太快了！");
+                    showMessage("你点的太快了");
                 }
             }
         });

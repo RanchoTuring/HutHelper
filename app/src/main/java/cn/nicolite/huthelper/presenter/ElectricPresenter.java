@@ -33,11 +33,11 @@ public class ElectricPresenter extends BasePresenter<IElectricView, ElectricActi
 
     public static final String YES = "1";
     public static final String NO = "2";
-    public int part=1;
+    public String part="1";
 
 
 
-    public void setPart(int part){
+    public void setPart(String part){
         this.part=part;
     }
 

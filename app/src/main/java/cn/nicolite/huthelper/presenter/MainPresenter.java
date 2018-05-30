@@ -56,54 +56,7 @@ public class MainPresenter extends BasePresenter<IMainView, MainActivity> {
         super(view, activity);
     }
 
-    public void showWeather() {
 
-        if (getView() != null) {
-            getView().showWeather(configure.getCity(), configure.getTmp(), configure.getContent());
-        }
-
-        APIUtils
-                .getWeatherAPI()
-                .getWeather()
-                .compose(getActivity().<Weather>bindToLifecycle())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Weather>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        if (getView() != null) {
-                            getView().showLoading();
-                        }
-                    }
-
-                    @Override
-                    public void onNext(@NonNull Weather weather) {
-                        if (getView() != null) {
-                            getView().closeLoading();
-                            getView().showWeather(weather.getData().getCity(), weather.getData().getWendu(),
-                                    weather.getData().getForecast().get(0).getType());
-
-                            configure.setCity(weather.getData().getCity());
-                            configure.setTmp(weather.getData().getWendu());
-                            configure.setContent(weather.getData().getForecast().get(0).getType());
-                            configure.update();
-                        }
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        if (getView() != null) {
-                            getView().closeLoading();
-                            getView().showMessage(ExceptionEngine.handleException(e).getMsg());
-                        }
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 
     public void showTimeAxis() {
         final TimeAxisDao timeAxisDao = daoSession.getTimeAxisDao();

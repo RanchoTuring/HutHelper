@@ -119,7 +119,7 @@ public class GoodsInfoPresenter extends BasePresenter<IGoodsInfoView, GoodsInfoA
                                 getView().showMessage(" 删除成功！");
                                 getView().deleteSuccess();
                             } else {
-                                getView().showMessage("删除失败，" + stringHttpResult.getCode());
+                                getView().showMessage(" 删除失败，" + stringHttpResult.getCode());
                             }
                         }
                     }
@@ -128,7 +128,7 @@ public class GoodsInfoPresenter extends BasePresenter<IGoodsInfoView, GoodsInfoA
                     public void onError(Throwable e) {
                         if (getView() != null) {
                             getView().closeLoading();
-                            getView().showMessage("删除失败，" + ExceptionEngine.handleException(e).getMsg());
+                            getView().showMessage(" 删除失败，" + ExceptionEngine.handleException(e).getMsg());
                         }
                     }
 

@@ -51,7 +51,7 @@ public class SmallBitmapGridViewAdapter extends BaseAdapter {
         img.setPadding(2, 2, 2, 2);
         img.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
-        int width = ScreenUtils.getScreenWidth(context) - DensityUtils.dp2px(context, 117);// 获取屏幕宽度
+        int width = ScreenUtils.getScreenWidth(context) - DensityUtils.dp2px(context, 117);//  获取屏幕宽度
         int height = width = width / 4;// 对当前的列数进行设置imgView的宽度
         img.setLayoutParams(new AbsListView.LayoutParams(width, height));
 

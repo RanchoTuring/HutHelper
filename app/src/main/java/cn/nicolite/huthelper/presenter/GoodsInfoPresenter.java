@@ -85,7 +85,7 @@ public class GoodsInfoPresenter extends BasePresenter<IGoodsInfoView, GoodsInfoA
 
         if (ListUtils.isEmpty(configureList)) {
             if (getView() != null) {
-                getView().showMessage("获取用户信息失败！");
+                getView().showMessage(" 获取用户信息失败！");
             }
             return;
         }

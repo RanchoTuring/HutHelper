@@ -94,7 +94,7 @@ public class GoodsInfoPresenter extends BasePresenter<IGoodsInfoView, GoodsInfoA
         User user = configure.getUser();
 
         if (getView() != null) {
-            getView().showMessage("正在删除！");
+            getView().showMessage(" 正在删除！");
         }
 
         APIUtils

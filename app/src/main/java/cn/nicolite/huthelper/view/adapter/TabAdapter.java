@@ -9,7 +9,7 @@ import java.util.List;
 import cn.nicolite.huthelper.utils.ListUtils;
 
 /**
- * TabLayout with ViewPager 通用适配器
+ * TabLayout with ViewPager   通用适配器
  * Created by nicolite on 17-7-30.
  */
 
